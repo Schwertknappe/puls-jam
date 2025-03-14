@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://jjuvch6rcsl4"]
+
+[ext_resource type="Script" uid="uid://dk5rdox3une6g" path="res://scripts/path_enemy.gd" id="1_16nks"]
+[ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="2_pw5sh"]
+
+[sub_resource type="Curve2D" id="Curve2D_im2du"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -54, 64, 0, 0, 0, 0, 181, 64)
+}
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5esd"]
+radius = 18.0
+height = 44.0
+
+[node name="Path2D" type="Path2D"]
+curve = SubResource("Curve2D_im2du")
+script = ExtResource("1_16nks")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-54, 64)
+
+[node name="Enemy" type="CharacterBody2D" parent="PathFollow2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy"]
+shape = SubResource("CapsuleShape2D_f5esd")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Enemy"]
+scale = Vector2(0.279999, 0.279999)
+texture = ExtResource("2_pw5sh")
