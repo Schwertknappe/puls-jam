@@ -334,4 +334,3 @@ script = ExtResource("7_kw13u")
 shape = SubResource("CapsuleShape2D_f5esd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/Enemy"]
-texture = ExtResource("1_8153q")
