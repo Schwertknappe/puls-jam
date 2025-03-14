@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var can_jump : bool = true
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -11,7 +12,7 @@ func _physics_process(delta):
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and can_jump:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
