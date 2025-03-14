@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Puls Jam"
-run/main_scene="uid://bfbf144ychlyq"
+run/main_scene="uid://cqkv2wqcavnlk"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
