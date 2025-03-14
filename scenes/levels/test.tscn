@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bfbf144ychlyq"]
+[gd_scene load_steps=16 format=4 uid="uid://bfbf144ychlyq"]
 
 [ext_resource type="Script" uid="uid://on7pu2he87r4" path="res://scripts/player.gd" id="1_52kye"]
 [ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="1_8153q"]
@@ -6,8 +6,7 @@
 [ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
 [ext_resource type="Script" uid="uid://b7xdnsaj5h3pb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
 [ext_resource type="Texture2D" uid="uid://cdsa4s31emco" path="res://assets/tilesets/Dungeon Tile Set.png" id="6_koekj"]
-[ext_resource type="Script" uid="uid://dk5rdox3une6g" path="res://scripts/path_follow_2d.gd" id="7_im2du"]
-[ext_resource type="Script" uid="uid://in6th0jcdfuh" path="res://scripts/Enemy1.gd" id="7_kw13u"]
+[ext_resource type="PackedScene" uid="uid://7dpnyu0qhbin" path="res://scenes/Enemy/path_Enemy.tscn" id="7_kw13u"]
 
 [sub_resource type="Resource" id="Resource_koekj"]
 script = ExtResource("2_7115g")
@@ -240,16 +239,6 @@ size = Vector2(760, 516)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52kye"]
 height = 40.0
 
-[sub_resource type="Curve2D" id="Curve2D_im2du"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -54, 64, 0, 0, 0, 0, 70, 60, 0, 0, 0, 0, 180, 60)
-}
-point_count = 3
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5esd"]
-radius = 18.0
-height = 44.0
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera" type="Node" parent="."]
@@ -317,21 +306,5 @@ texture = ExtResource("1_8153q")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CapsuleShape2D_52kye")
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="Path2D" parent="." instance=ExtResource("7_kw13u")]
 position = Vector2(0, 78)
-scale = Vector2(1, -0.2)
-curve = SubResource("Curve2D_im2du")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-54, 64)
-rotation = -0.0322469
-script = ExtResource("7_im2du")
-
-[node name="Enemy" type="CharacterBody2D" parent="Path2D/PathFollow2D"]
-script = ExtResource("7_kw13u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Enemy"]
-shape = SubResource("CapsuleShape2D_f5esd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/Enemy"]
-texture = ExtResource("1_8153q")
