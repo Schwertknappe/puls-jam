@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://bfbf144ychlyq"]
+[gd_scene load_steps=20 format=4 uid="uid://bfbf144ychlyq"]
 
 [ext_resource type="Script" uid="uid://on7pu2he87r4" path="res://scripts/player.gd" id="1_52kye"]
-[ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="1_8153q"]
 [ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
 [ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
 [ext_resource type="Script" uid="uid://b7xdnsaj5h3pb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
 [ext_resource type="Texture2D" uid="uid://cdsa4s31emco" path="res://assets/tilesets/Dungeon Tile Set.png" id="6_koekj"]
+[ext_resource type="Texture2D" uid="uid://bxxtgf3lfal0n" path="res://assets/sprites/Anim_Robot_Walk1_v1.1_spritesheet.png" id="6_kw13u"]
 
 [sub_resource type="Resource" id="Resource_koekj"]
 script = ExtResource("2_7115g")
@@ -236,7 +236,82 @@ size = Vector2(760, 516)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kw13u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52kye"]
-height = 40.0
+radius = 11.0
+height = 32.0
+
+[sub_resource type="Animation" id="Animation_koekj"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_kw13u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_im2du"]
+resource_name = "jump"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_f5esd"]
+resource_name = "land"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [15, 16, 17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_im2du"]
+_data = {
+&"RESET": SubResource("Animation_kw13u"),
+&"jump": SubResource("Animation_im2du"),
+&"land": SubResource("Animation_f5esd"),
+&"walk": SubResource("Animation_koekj")
+}
 
 [node name="Node2D" type="Node2D"]
 
@@ -277,6 +352,7 @@ tile_map_data = PackedByteArray("AAD7/wMAAAADAAEAAAD6/wMAAAACAAEAAAD5/wMAAAABAAE
 tile_set = SubResource("TileSet_52kye")
 
 [node name="Area2D" type="Area2D" parent="World"]
+visible = false
 
 [node name="Camera Bounds" type="CollisionShape2D" parent="World/Area2D"]
 position = Vector2(48, -126)
@@ -299,8 +375,15 @@ shape = SubResource("WorldBoundaryShape2D_kw13u")
 script = ExtResource("1_52kye")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.15625, 0.3125)
-texture = ExtResource("1_8153q")
+texture_filter = 2
+texture = ExtResource("6_kw13u")
+hframes = 9
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CapsuleShape2D_52kye")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_im2du")
+}
