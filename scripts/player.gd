@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal hit
 
 @export var can_jump : bool = true
 @export var can_double_jump : bool = true
@@ -47,3 +48,20 @@ func _handle_animation(delta, direction):
 		animation_player.play("walk")
 	elif is_on_floor() and animation_player.is_playing():
 		animation_player.pause()
+	
+func _on_body_entered(_body):
+	hide() # Player disappears after being hit.
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	hide() # Player disappears after being hit.
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true) # Replace with function body.
