@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://bfbf144ychlyq"]
+[gd_scene load_steps=17 format=4 uid="uid://bfbf144ychlyq"]
 
 [ext_resource type="Script" uid="uid://on7pu2he87r4" path="res://scripts/player.gd" id="1_52kye"]
 [ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="1_8153q"]
@@ -239,6 +239,9 @@ size = Vector2(760, 516)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52kye"]
 height = 40.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kw13u"]
+height = 40.0
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera" type="Node" parent="."]
@@ -306,5 +309,12 @@ texture = ExtResource("1_8153q")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CapsuleShape2D_52kye")
 
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+shape = SubResource("CapsuleShape2D_kw13u")
+
 [node name="Path2D" parent="." instance=ExtResource("7_kw13u")]
 position = Vector2(0, 78)
+
+[connection signal="body_entered" from="Player/Area2D" to="Player" method="_on_area_2d_body_entered"]
