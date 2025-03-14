@@ -1,6 +1,5 @@
 [gd_scene load_steps=5 format=3 uid="uid://jjuvch6rcsl4"]
 
-[ext_resource type="Script" uid="uid://dk5rdox3une6g" path="res://scripts/path_enemy.gd" id="1_16nks"]
 [ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="2_pw5sh"]
 
 [sub_resource type="Curve2D" id="Curve2D_im2du"]
@@ -9,18 +8,42 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="GDScript" id="GDScript_4ysoc"]
+script/source = "extends Path2D
+
+@export var speed : float = 1
+var direction = 1
+
+@onready var path : PathFollow2D = $PathFollow2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var new_value = clamp(path.progress_ratio + speed * delta * direction, 0.0, 1.0)
+	
+	if new_value == 1.0 or new_value == 0.0:
+		direction *= -1
+		
+	path.progress_ratio = new_value
+"
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5esd"]
 radius = 18.0
 height = 44.0
 
 [node name="Path2D" type="Path2D"]
 curve = SubResource("Curve2D_im2du")
-script = ExtResource("1_16nks")
+script = SubResource("GDScript_4ysoc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2(-54, 64)
 
 [node name="Enemy" type="CharacterBody2D" parent="PathFollow2D"]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy"]
 shape = SubResource("CapsuleShape2D_f5esd")
