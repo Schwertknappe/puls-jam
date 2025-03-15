@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=4 uid="uid://cqkv2wqcavnlk"]
 
-[ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
-[ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
-[ext_resource type="Script" uid="uid://b7xdnsaj5h3pb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
 [ext_resource type="PackedScene" uid="uid://b510na63oy3qi" path="res://scenes/player.tscn" id="5_koekj"]
 [ext_resource type="Texture2D" uid="uid://cdsa4s31emco" path="res://assets/tilesets/Dungeon Tile Set.png" id="6_koekj"]
 [ext_resource type="PackedScene" uid="uid://jjuvch6rcsl4" path="res://scenes/enemies/path_enemy.tscn" id="6_kw13u"]
