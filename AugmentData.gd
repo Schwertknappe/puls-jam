@@ -6,7 +6,7 @@ static var AUGMENTS = [
 	"title": "Stay Low",
 	"description": "Double Jump disabled",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.can_double_jump = false
+	"apply": func(p): p.double_jump_enabled = false
 },
 {
 	"title": "Anti-Grav",

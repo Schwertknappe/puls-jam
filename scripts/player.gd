@@ -142,7 +142,7 @@ func _physics_process(delta):
 
 
 func _can_jump() -> bool:
-	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or wall_check.is_colliding() or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
+	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
 
 func _jump():
 	current_speed = SPEED
