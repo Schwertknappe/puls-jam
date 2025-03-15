@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://x5ydke3l0tan" path="res://assets/sprites/Walk.png" id="1_4ysoc"]
 [ext_resource type="Script" uid="uid://bk50erov17vqt" path="res://scripts/enemy.gd" id="1_16nks"]
+[ext_resource type="Script" uid="uid://be8dmf351da7r" path="res://scripts/drone.gd" id="1_dyfay"]
 
 [sub_resource type="Curve2D" id="Curve2D_im2du"]
 _data = {
@@ -9,32 +10,9 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="GDScript" id="GDScript_4ysoc"]
-script/source = "extends Path2D
-
-@export var speed : float = 1
-var direction = 1
-
-@onready var path : PathFollow2D = $PathFollow2D
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	var new_value = clamp(path.progress_ratio + speed * delta * direction, 0.0, 1.0)
-	
-	if new_value == 1.0 or new_value == 0.0:
-		direction *= -1
-		
-	path.progress_ratio = new_value
-"
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5esd"]
-radius = 14.0
-height = 30.6118
+radius = 13.0
+height = 32.0
 
 [sub_resource type="Animation" id="Animation_pw5sh"]
 length = 0.001
@@ -99,9 +77,9 @@ _data = {
 &"walking": SubResource("Animation_16nks")
 }
 
-[node name="Path2D" type="Path2D"]
+[node name="Drone" type="Path2D"]
 curve = SubResource("Curve2D_im2du")
-script = SubResource("GDScript_4ysoc")
+script = ExtResource("1_dyfay")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2(-100, 0)
