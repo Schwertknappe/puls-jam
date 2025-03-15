@@ -252,6 +252,7 @@ tween_resource = SubResource("Resource_koekj")
 follow_offset = Vector2(0, -64)
 dead_zone_width = 0.1
 dead_zone_height = 0.25
+draw_limits = true
 limit_target = NodePath("../../World/Area2D/Camera Bounds")
 metadata/_custom_type_script = "uid://cbwboxrl1cgvs"
 
