@@ -108,6 +108,7 @@ collision_mask = 5
 script = ExtResource("1_g2els")
 WALLJUMP_VELOCITY = Vector2(200, -400)
 wall_cling_modifier = 0.1
+climb_speed = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -138,6 +139,8 @@ position = Vector2(12, 0)
 target_position = Vector2(10, 0)
 collision_mask = 5
 hit_from_inside = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

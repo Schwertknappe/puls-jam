@@ -8,6 +8,7 @@ signal hit
 
 @export var SPEED = 200.0 
 @export var JUMP_VELOCITY = -300.0
+@export var coyote_time_length = 0.2
 @export var DOUBLE_JUMP_VELOCITY = -300.0
 @export var WALLJUMP_VELOCITY = Vector2(200.0, -300.0)
 @export_range(0.0, 1.0, 0.05) var wall_cling_modifier = 0.4
@@ -38,7 +39,9 @@ var input_enabled : bool = true
 var lives_left = MAX_LIVES
 var can_climb : bool = false
 var current_gravity : Vector2
+var was_grounded_last_frame : bool = true
 
+@onready var coyote_timer : Timer = $CoyoteTimer
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var collider : CollisionShape2D = $CollisionShape2D
@@ -112,17 +115,24 @@ func _physics_process(delta):
 	if is_on_floor() and state == State.JUMPING:
 		_land()
 	
+	if was_grounded_last_frame and !is_on_floor():
+		coyote_timer.start(coyote_time_length)
+	elif !was_grounded_last_frame and is_on_floor():
+		coyote_timer.stop()
+	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and _can_jump():
 		_jump()
 	
 	_handle_animation(delta, direction)
 	
+	was_grounded_last_frame = is_on_floor()
+	
 	move_and_slide()
 
 
 func _can_jump() -> bool:
-	return jump_enabled and (is_on_floor() or wall_check.is_colliding() or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
+	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or wall_check.is_colliding() or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
 
 func _jump():
 	current_speed = SPEED
@@ -140,11 +150,12 @@ func _jump():
 		_flip_horizontally()
 	
 	# use double jump
-	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING:
+	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING and coyote_timer.time_left <= 0.0:
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
 	
+	coyote_timer.stop()
 	state = State.JUMPING
 	animation_player.play("jump")
 
@@ -229,7 +240,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		die()
 
 func _on_area_2d_body_exited(body):
-	if body is TileMapLayer and !tile_has_property(body, "is_ladder"):
+	if body is TileMapLayer:
 		can_climb = false
 		state = State.IDLE
 
