@@ -39,8 +39,12 @@ var lives_left = MAX_LIVES
 @onready var collider : CollisionShape2D = $CollisionShape2D
 @onready var wall_check : RayCast2D = $WallCheck
 
+@onready var augment_ui = $AugmentUI
+
 func _ready():
 	start_position = transform.get_origin()
+	$AugmentUI.augment_selected.connect(_on_augment_selected)
+	show_augment_selection()
 	if not jump_enabled:
 		double_jump_enabled = false
 	
@@ -51,6 +55,15 @@ func _ready():
 		collision_layer &= ~(1 << 2)
 		collision_mask &= ~(1 << 2)
 
+func show_augment_selection():
+	var augments = AugmentData.get_random_augments(3)
+	$AugmentUI.show_augments(augments)
+	augment_ui.augment_selected.connect(_on_augment_selected)
+	
+
+func _on_augment_selected(augment):
+	augment.apply.call(self)
+	
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
