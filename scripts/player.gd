@@ -47,8 +47,11 @@ var was_grounded_last_frame : bool = true
 @onready var collider : CollisionShape2D = $CollisionShape2D
 @onready var wall_check : RayCast2D = $WallCheck
 
+@onready var augment_ui = $AugmentUI
+
 func _ready():
 	start_position = transform.get_origin()
+	show_augment_selection()
 	if not jump_enabled:
 		double_jump_enabled = false
 	
@@ -61,6 +64,15 @@ func _ready():
 	
 	current_gravity = get_gravity()
 
+func show_augment_selection():
+	var augments = AugmentData.get_random_augments(3)
+	augment_ui.show_augments(augments)
+	augment_ui.augment_selected.connect(_on_augment_selected)
+	
+
+func _on_augment_selected(augment_data):
+	augment_data["apply"].call(self)
+	
 func _physics_process(delta):
 	current_gravity = Vector2(0.0,0.0) if state == State.CLIMBING else get_gravity()
 	
