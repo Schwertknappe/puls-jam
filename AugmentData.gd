@@ -10,7 +10,7 @@ static var AUGMENTS = [
 },
 {
 	"title": "Anti-Grav",
-	"description": "Reserved Gravity",
+	"description": "Reversed Gravity",
 	"icon": preload("res://assets/sprites/Walk.png"),
 	"apply": func(p): p.gravity_modifier = -1.0
 },
@@ -61,6 +61,12 @@ static var AUGMENTS = [
 	"description": "Walljump disabled",
 	"icon": preload("res://assets/sprites/Walk.png"),
 	"apply": func(p): p.walljump_enabled = false
+},
+{
+	"title": "Feeling tipsy",
+	"description": "Jumping adds horizontal direction",
+	"icon": preload("res://assets/sprites/Walk.png"),
+	"apply": func(p): p.randomize_horizontal_jump_direction = true
 },
 ]
 

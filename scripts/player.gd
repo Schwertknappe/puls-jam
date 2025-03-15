@@ -49,11 +49,44 @@ var was_grounded_last_frame : bool = true
 
 func _ready():
 	start_position = transform.get_origin()
+	
+	if not Globals.first_run:
+		_get_global_values()
+	
+	_setup_safety_checks()
+	
+	current_gravity = get_gravity()
+
+func _get_global_values():
+	SPEED = Globals.SPEED
+	JUMP_VELOCITY = Globals.JUMP_VELOCITY
+	coyote_time_length = Globals.coyote_time_length
+	DOUBLE_JUMP_VELOCITY = Globals.DOUBLE_JUMP_VELOCITY
+	WALLJUMP_VELOCITY = Globals.WALLJUMP_VELOCITY
+	wall_cling_modifier = Globals.wall_cling_modifier
+	climb_speed = Globals.climb_speed
+
+	jump_enabled = Globals.jump_enabled
+	double_jump_enabled = Globals.double_jump_enabled
+	wallcling_enabled = Globals.wallcling_enabled
+	walljump_enabled = Globals.walljump_enabled
+	gravity_modifier = Globals.gravity_modifier
+	horizontal_jump_direction = Globals.horizontal_jump_direction
+	randomize_horizontal_jump_direction = Globals.randomize_horizontal_jump_direction
+	mirror_input = Globals.mirror_input
+	collides_with_walls = Globals.collides_with_walls
+	can_shoot = Globals.can_shoot
+	can_walk_left = Globals.can_walk_left
+	can_walk_right = Globals.can_walk_right
+
+func _setup_safety_checks():
 	if not jump_enabled:
 		double_jump_enabled = false
 	
 	if double_jump_enabled:
 		double_jump_available = true
+	else:
+		double_jump_available = false
 	
 	if not collides_with_walls:
 		walljump_enabled = false
@@ -64,12 +97,10 @@ func _ready():
 	if not collides_with_walls:
 		collision_layer &= ~(1 << 2)
 		collision_mask &= ~(1 << 2)
-	
-	current_gravity = get_gravity()
-
 
 func _on_augment_selected(augment_data):
 	augment_data["apply"].call(self)
+	_setup_safety_checks()
 	
 func _physics_process(delta):
 	current_gravity = Vector2(0.0,0.0) if state == State.CLIMBING else get_gravity()
@@ -147,6 +178,7 @@ func _can_jump() -> bool:
 func _jump():
 	current_speed = SPEED
 	velocity.y = JUMP_VELOCITY
+	coyote_timer.stop()
 	
 	if randomize_horizontal_jump_direction:
 		var arr = [-1, 1]
@@ -155,12 +187,12 @@ func _jump():
 	velocity.x += horizontal_jump_direction
 	
 	# wall jump
-	if wall_check.is_colliding() and not is_on_floor():
+	if wall_check.is_colliding() and wallcling_enabled:
 		velocity.x = get_wall_normal().x * WALLJUMP_VELOCITY.x
 		_flip_horizontally()
 	
 	# use double jump
-	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING and coyote_timer.time_left <= 0.0:
+	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING and coyote_timer.time_left <= 0.0 and double_jump_enabled:
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
@@ -180,7 +212,7 @@ func _land():
 func _check_wall_cling(direction):
 	var normalized_direction = 1 if direction < 0 else -1
 	
-	if wall_check.is_colliding() and normalized_direction == get_wall_normal().x:
+	if wall_check.is_colliding() and normalized_direction == get_wall_normal().x and wallcling_enabled:
 		if velocity.y < 0.0:
 			velocity.y = 0.0
 		clinging_to_wall = true
@@ -227,7 +259,8 @@ func die():
 	if lives_left > 0:
 		respawn()
 	else:
-		input_enabled = false
+		Globals.first_run = true
+		get_tree().reload_current_scene()
 
 func tile_has_property(tile_map : TileMapLayer, property : String) -> bool:
 	var tile_coords = tile_map.local_to_map(global_position)
