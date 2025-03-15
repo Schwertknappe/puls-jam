@@ -2,15 +2,19 @@ extends CharacterBody2D
 signal hit
 
 @export_category("General Variables")
+@export_range(1, 10, 1) var MAX_LIVES = 3
+
 @export var SPEED = 200.0 
 @export var JUMP_VELOCITY = -300.0
 @export var DOUBLE_JUMP_VELOCITY = -300.0
-@export_range(1, 10, 1) var MAX_LIVES = 3
+@export var WALLJUMP_VELOCITY = Vector2(200.0, -300.0)
+@export_range(0.0, 1.0, 0.05) var wall_cling_modifier = 0.4
 
 @export_category("Breakable Mechanics")
 @export var jump_enabled : bool = true
 @export var double_jump_enabled : bool = true
-@export var walljump_enabled : bool = true # not implemented yet
+@export var wallcling_enabled : bool = true
+@export var walljump_enabled : bool = true
 @export_range(-2, 2, 0.1) var gravity_modifier: float = 1.0
 @export_range(-1000, 1000, 10) var horizontal_jump_direction: float = 0.0 # implementation kinda sucks
 @export var mirror_input : bool = false
@@ -23,6 +27,7 @@ enum State {IDLE, WALKING, JUMPING, LANDING}
 
 var current_speed = SPEED
 var double_jump_available = false
+var clinging_to_wall = false
 var start_position
 var state : State = State.IDLE
 var input_enabled : bool = true
@@ -31,10 +36,11 @@ var lives_left = MAX_LIVES
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var collider : CollisionShape2D = $CollisionShape2D
+@onready var wall_check : RayCast2D = $WallCheck
 
 func _ready():
 	start_position = transform.get_origin()
-	if !jump_enabled:
+	if not jump_enabled:
 		double_jump_enabled = false
 	
 	if double_jump_enabled:
@@ -43,7 +49,10 @@ func _ready():
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta * gravity_modifier
+		if not clinging_to_wall:
+			velocity += get_gravity() * delta * gravity_modifier
+		else: 
+			velocity += get_gravity() * delta * gravity_modifier * wall_cling_modifier
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -53,15 +62,26 @@ func _physics_process(delta):
 	else:
 		direction = Input.get_axis("move_right", "move_left")
 	
+	_check_wall_cling(direction)
+	
 	if !can_walk_left:
 		direction = clamp(direction, 0.0, 1.0)
 	if !can_walk_right:
 		direction = clamp(direction, -1.0, 0.0)
 	
+	if not is_on_floor():
+		direction *= 0.1
+	
 	if direction and input_enabled:
-		velocity.x = direction * current_speed
+		velocity.x += direction * current_speed
+		velocity.x = clamp(velocity.x, -current_speed, current_speed)
 	else:
-		velocity.x = move_toward(velocity.x, 0, current_speed)
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, current_speed)
+		elif velocity.x > 0.0:
+			velocity.x = move_toward(velocity.x, current_speed/2, current_speed)
+		elif velocity.x < 0.0:
+			velocity.x = move_toward(velocity.x, -current_speed/2, current_speed)
 	
 	# check if player just landed and reset double jump
 	if is_on_floor() and state == State.JUMPING:
@@ -77,7 +97,7 @@ func _physics_process(delta):
 
 
 func _can_jump() -> bool:
-	return jump_enabled and (is_on_floor() or (!is_on_floor() and double_jump_available))
+	return jump_enabled and (is_on_floor() or wall_check.is_colliding() or (!is_on_floor() and double_jump_available))
 
 func _jump():
 	current_speed = SPEED
@@ -86,12 +106,18 @@ func _jump():
 	velocity.x += horizontal_jump_direction
 	animation_player.play("jump")
 	
+	# wall jump
+	if wall_check.is_colliding() and not is_on_floor():
+		velocity.x = get_wall_normal().x * WALLJUMP_VELOCITY.x
+		_flip_horizontally()
+	
 	# use double jump
-	if not is_on_floor():
+	if not is_on_floor() and not wall_check.is_colliding():
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
 		animation_player.play("jump")
+
 
 func _land():
 	state = State.LANDING
@@ -100,9 +126,20 @@ func _land():
 	current_speed = SPEED*0.75
 	animation_player.play("land")
 
+func _check_wall_cling(direction):
+	var normalized_direction = 1 if direction < 0 else -1
+	
+	if wall_check.is_colliding() and normalized_direction == get_wall_normal().x:
+		if velocity.y < 0.0:
+			velocity.y = 0.0
+		clinging_to_wall = true
+	
+	if clinging_to_wall and not wall_check.is_colliding():
+		clinging_to_wall = false
+
 func _handle_animation(delta, direction):
 	if direction != 0.0 and velocity.x < 0.0 != sprite.flip_h:
-		sprite.flip_h = !sprite.flip_h
+		_flip_horizontally()
 	
 	if gravity_modifier < 0.0 != sprite.flip_v:
 		sprite.flip_v = ! sprite.flip_v
@@ -114,6 +151,10 @@ func _handle_animation(delta, direction):
 		state = State.IDLE
 		animation_player.play("idle")
 
+func _flip_horizontally():
+	sprite.flip_h = !sprite.flip_h
+	wall_check.target_position *= -1
+	wall_check.transform.origin.x *= -1
 
 func respawn():
 	lives_left -= 1
