@@ -16,7 +16,8 @@ signal hit
 @export var wallcling_enabled : bool = true
 @export var walljump_enabled : bool = true
 @export_range(-2, 2, 0.1) var gravity_modifier: float = 1.0
-@export_range(-1000, 1000, 10) var horizontal_jump_direction: float = 0.0 # implementation kinda sucks
+@export_range(-1000, 1000, 10) var horizontal_jump_direction: float = 0.0
+@export var randomize_horizontal_jump_direction: bool = false
 @export var mirror_input : bool = false
 @export var collides_with_walls : bool = true # not implemented yet
 @export var can_shoot : bool = true # not implemented yet
@@ -103,8 +104,13 @@ func _jump():
 	current_speed = SPEED
 	state = State.JUMPING
 	velocity.y = JUMP_VELOCITY
-	velocity.x += horizontal_jump_direction
 	animation_player.play("jump")
+	
+	if randomize_horizontal_jump_direction:
+		var arr = [-1, 1]
+		var direction = arr[randi() % arr.size()]
+		horizontal_jump_direction = randf_range(300, 1000)*direction
+	velocity.x += horizontal_jump_direction
 	
 	# wall jump
 	if wall_check.is_colliding() and not is_on_floor():
