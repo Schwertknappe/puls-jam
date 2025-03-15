@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://jjuvch6rcsl4"]
+[gd_scene load_steps=9 format=3 uid="uid://jjuvch6rcsl4"]
 
-[ext_resource type="Texture2D" uid="uid://cg7gr8bthvad2" path="res://icon.svg" id="2_pw5sh"]
+[ext_resource type="Texture2D" uid="uid://x5ydke3l0tan" path="res://assets/sprites/Walk.png" id="1_4ysoc"]
+[ext_resource type="Script" uid="uid://bk50erov17vqt" path="res://scripts/enemy.gd" id="1_16nks"]
 
 [sub_resource type="Curve2D" id="Curve2D_im2du"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -54, 64, 0, 0, 0, 0, 181, 64)
+"points": PackedVector2Array(0, 0, 0, 0, -100, 0, 0, 0, 0, 0, 100, 0)
 }
 point_count = 2
 
@@ -32,22 +33,91 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5esd"]
-radius = 18.0
-height = 44.0
+radius = 14.0
+height = 30.6118
+
+[sub_resource type="Animation" id="Animation_16nks"]
+resource_name = "walking"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_pw5sh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ixof7"]
+_data = {
+&"RESET": SubResource("Animation_pw5sh"),
+&"walking": SubResource("Animation_16nks")
+}
 
 [node name="Path2D" type="Path2D"]
 curve = SubResource("Curve2D_im2du")
 script = SubResource("GDScript_4ysoc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(-54, 64)
+position = Vector2(-100, 0)
 
 [node name="Enemy" type="CharacterBody2D" parent="PathFollow2D"]
 collision_layer = 2
+script = ExtResource("1_16nks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy"]
 shape = SubResource("CapsuleShape2D_f5esd")
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Enemy"]
-scale = Vector2(0.279999, 0.279999)
-texture = ExtResource("2_pw5sh")
+texture = ExtResource("1_4ysoc")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/Enemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_ixof7")
+}

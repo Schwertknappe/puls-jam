@@ -2,3 +2,4 @@ Assets:
 	
 	https://incolgames.itch.io/dungeon-platformer-tile-set-pixel-art
 	https://atomicrealm.itch.io/industrial-tileset
+	https://free-game-assets.itch.io/free-drones-pack-pixel-art

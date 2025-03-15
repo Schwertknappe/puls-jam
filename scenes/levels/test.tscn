@@ -297,3 +297,5 @@ shape = SubResource("WorldBoundaryShape2D_kw13u")
 position = Vector2(-201, 23)
 
 [node name="Path2D" parent="." instance=ExtResource("6_kw13u")]
+position = Vector2(63, 23)
+speed = 0.5

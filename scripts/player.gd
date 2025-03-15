@@ -6,8 +6,9 @@ signal hit
 
 enum State {IDLE, WALKING, JUMPING, LANDING}
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 200.0
+const JUMP_VELOCITY = -300.0
+const DOUBLE_JUMP_VELOCITY = JUMP_VELOCITY
 
 var current_speed = SPEED
 var double_jump_available = false
@@ -25,8 +26,6 @@ func _ready():
 		double_jump_available = true
 
 func _physics_process(delta):
-	$Label.text = "State: "+State.keys()[state]
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -53,20 +52,26 @@ func _physics_process(delta):
 
 
 func _can_jump() -> bool:
-	return jump_endabled and ((is_on_floor() and state != State.LANDING) or (!is_on_floor() and double_jump_available))
+	return jump_endabled and (is_on_floor() or (!is_on_floor() and double_jump_available))
 
 func _jump():
+	current_speed = SPEED
 	state = State.JUMPING
 	velocity.y = JUMP_VELOCITY
 	animation_player.play("jump")
+	
+	# use double jump
 	if not is_on_floor():
 		double_jump_available = false
+		velocity.y = DOUBLE_JUMP_VELOCITY
+		animation_player.stop()
+		animation_player.play("jump")
 
 func _land():
 	state = State.LANDING
 	if double_jump_enabled:
 		double_jump_available = true
-	current_speed = SPEED/2
+	current_speed = SPEED*0.75
 	animation_player.play("land")
 
 func _handle_animation(delta, direction):
