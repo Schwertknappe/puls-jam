@@ -3,52 +3,64 @@ class_name AugmentData
 
 static var AUGMENTS = [
 {
-	"title": "Grounded",
-	"description": "Doppelsprung deaktiviert",
+	"title": "Stay Low",
+	"description": "Double Jump disabled",
 	"icon": preload("res://assets/sprites/Walk.png"),
 	"apply": func(p): p.can_double_jump = false
 },
 {
 	"title": "Anti-Grav",
-	"description": "Umgekehrte Schwerkraft",
+	"description": "Reserved Gravity",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.gravity_modifier = -1.0
 },
 {
 	"title": "<-->",
-	"description": "<>",
+	"description": "Left is right?",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.speed *= 0.5
+	"apply": func(p): p.mirror_input = true
 },
 {
-	"title": "Kanone geht kaputt",
-	"description": "Umgekehrte Schwerkraft",
+	"title": "Out of fire",
+	"description": "Pistol disabled",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.can_shoot = false
 },
 {
-	"title": "Kollision mit Wänden",
-	"description": "Umgekehrte Schwerkraft",
+	"title": "Nothing can stop me!",
+	"description": "Collisions with walls disabled",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.collides_with_walls = false
 },
 {
-	"title": "links rechts laufen kaputt",
-	"description": "Umgekehrte Schwerkraft",
+	"title": "No looking back",
+	"description": "Cannot run left",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.can_walk_left = false
 },
 {
-	"title": "Spieler wird sehr schnell",
-	"description": "Umgekehrte Schwerkraft",
+	"title": "Out of my way!",
+	"description": "Run faster",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.SPEED *= 1.5 
 },
 {
-	"title": "50% hp",
-	"description": "Umgekehrte Schwerkraft",
+	"title": "Here comes the snail",
+	"description": "Run slower",
 	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity *= -1
+	"apply": func(p): p.SPEED *= 0.5 
+},
+{
+	"title": "Grounded",
+	"description": "Jumping disabled",
+	"icon": preload("res://assets/sprites/Walk.png"),
+	"apply": func(p): p.jump_enabled = false
+},
+{
+	"title": "A Wall is a wall",
+	"description": "Walljump disabled",
+	"icon": preload("res://assets/sprites/Walk.png"),
+	"apply": func(p): p.walljump_enabled = false
 },
 ]
 

@@ -47,8 +47,6 @@ var was_grounded_last_frame : bool = true
 @onready var collider : CollisionShape2D = $CollisionShape2D
 @onready var wall_check : RayCast2D = $WallCheck
 
-@onready var augment_ui = $AugmentUI
-
 func _ready():
 	start_position = transform.get_origin()
 	if not jump_enabled:
@@ -56,6 +54,12 @@ func _ready():
 	
 	if double_jump_enabled:
 		double_jump_available = true
+	
+	if not collides_with_walls:
+		walljump_enabled = false
+	
+	if not walljump_enabled:
+		wallcling_enabled = false
 	
 	if not collides_with_walls:
 		collision_layer &= ~(1 << 2)
