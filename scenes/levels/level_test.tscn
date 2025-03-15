@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://3jgyt6k76jkp"]
+[gd_scene load_steps=19 format=4 uid="uid://3jgyt6k76jkp"]
 
 [ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uh3ll"]
 [ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_4lw2e"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://owhr0d3mr5lb" path="res://assets/sprites/laser_spikes_idle.png" id="6_bqmi1"]
 [ext_resource type="PackedScene" uid="uid://jjuvch6rcsl4" path="res://scenes/enemies/drone.tscn" id="6_s0ovu"]
 [ext_resource type="PackedScene" uid="uid://i1236ulu16x8" path="res://scenes/enemies/saw.tscn" id="9_8883n"]
+[ext_resource type="PackedScene" uid="uid://buhqf7ob7taj" path="res://scenes/piston.tscn" id="10_es4qh"]
 
 [sub_resource type="Resource" id="Resource_nxmka"]
 script = ExtResource("2_4lw2e")
@@ -392,3 +393,7 @@ speed = 0.5
 
 [node name="Saw" parent="." instance=ExtResource("9_8883n")]
 position = Vector2(63, 64)
+
+[node name="Piston" parent="." instance=ExtResource("10_es4qh")]
+position = Vector2(-359, -64)
+bounce_height = -600

@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name Player
+
 signal hit
 
 @export_category("General Variables")
@@ -83,6 +85,8 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		direction *= 0.1
+		if not is_on_wall() and state != State.CLIMBING:
+			state = State.JUMPING
 	
 	if direction and input_enabled:
 		velocity.x += direction * current_speed
@@ -162,6 +166,8 @@ func _check_wall_cling(direction):
 	
 	if clinging_to_wall and not wall_check.is_colliding():
 		clinging_to_wall = false
+
+
 
 func _handle_animation(delta, direction):
 	if direction != 0.0 and velocity.x < 0.0 != sprite.flip_h:
