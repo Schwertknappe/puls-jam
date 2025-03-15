@@ -19,7 +19,7 @@ signal hit
 @export_range(-1000, 1000, 10) var horizontal_jump_direction: float = 0.0
 @export var randomize_horizontal_jump_direction: bool = false
 @export var mirror_input : bool = false
-@export var collides_with_walls : bool = true # not implemented yet
+@export var collides_with_walls : bool = true
 @export var can_shoot : bool = true # not implemented yet
 @export var can_walk_left: bool = true
 @export var can_walk_right: bool = true
@@ -46,6 +46,10 @@ func _ready():
 	
 	if double_jump_enabled:
 		double_jump_available = true
+	
+	if not collides_with_walls:
+		collision_layer &= ~(1 << 2)
+		collision_mask &= ~(1 << 2)
 
 func _physics_process(delta):
 	# Add the gravity.
