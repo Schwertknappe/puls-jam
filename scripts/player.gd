@@ -51,7 +51,6 @@ var was_grounded_last_frame : bool = true
 
 func _ready():
 	start_position = transform.get_origin()
-	show_augment_selection()
 	if not jump_enabled:
 		double_jump_enabled = false
 	
@@ -64,11 +63,6 @@ func _ready():
 	
 	current_gravity = get_gravity()
 
-func show_augment_selection():
-	var augments = AugmentData.get_random_augments(3)
-	augment_ui.show_augments(augments)
-	augment_ui.augment_selected.connect(_on_augment_selected)
-	
 
 func _on_augment_selected(augment_data):
 	augment_data["apply"].call(self)
