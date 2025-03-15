@@ -5,8 +5,6 @@ signal selected
 @export var description_label: Label
 @export var icon_texture: TextureRect
 
-@onready var player := get_node('/root/Player')
-
 # Called when the node enters the scene tree for the first time.
 var current_augment: Dictionary
 

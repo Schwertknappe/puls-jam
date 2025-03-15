@@ -43,7 +43,6 @@ var lives_left = MAX_LIVES
 
 func _ready():
 	start_position = transform.get_origin()
-	$AugmentUI.augment_selected.connect(_on_augment_selected)
 	show_augment_selection()
 	if not jump_enabled:
 		double_jump_enabled = false
@@ -57,7 +56,7 @@ func _ready():
 
 func show_augment_selection():
 	var augments = AugmentData.get_random_augments(3)
-	$AugmentUI.show_augments(augments)
+	augment_ui.show_augments(augments)
 	augment_ui.augment_selected.connect(_on_augment_selected)
 	
 
