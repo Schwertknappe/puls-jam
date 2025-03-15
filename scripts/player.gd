@@ -43,6 +43,7 @@ var was_grounded_last_frame : bool = true
 
 @onready var coyote_timer : Timer = $CoyoteTimer
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var gun : Sprite2D = $Gun
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var collider : CollisionShape2D = $CollisionShape2D
 @onready var wall_check : RayCast2D = $WallCheck
@@ -97,6 +98,7 @@ func _setup_safety_checks():
 	if not collides_with_walls:
 		collision_layer &= ~(1 << 2)
 		collision_mask &= ~(1 << 2)
+	
 
 func _on_augment_selected(augment_data):
 	augment_data["apply"].call(self)
@@ -119,6 +121,9 @@ func _physics_process(delta):
 		direction = Input.get_axis("move_left", "move_right")
 	else:
 		direction = Input.get_axis("move_right", "move_left")
+	
+	if Input.is_action_just_pressed("shoot"):
+		$Gun.shoot()
 	
 	_check_wall_cling(direction)
 	
@@ -240,6 +245,10 @@ func _flip_horizontally():
 	sprite.flip_h = !sprite.flip_h
 	wall_check.target_position *= -1
 	wall_check.transform.origin.x *= -1
+	
+	gun.flip_h = !gun.flip_h
+	gun.scale.x *= -1
+	
 
 func respawn():
 	lives_left -= 1
