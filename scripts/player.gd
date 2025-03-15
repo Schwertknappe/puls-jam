@@ -126,9 +126,7 @@ func _can_jump() -> bool:
 
 func _jump():
 	current_speed = SPEED
-	state = State.JUMPING
 	velocity.y = JUMP_VELOCITY
-	animation_player.play("jump")
 	
 	if randomize_horizontal_jump_direction:
 		var arr = [-1, 1]
@@ -146,7 +144,9 @@ func _jump():
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
-		animation_player.play("jump")
+	
+	state = State.JUMPING
+	animation_player.play("jump")
 
 
 func _land():
