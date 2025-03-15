@@ -5,18 +5,16 @@ var current_augments: Array = []
 
 func show_augments(augments: Array):
 	current_augments = augments
-	for i in range(2):
+	for i in range(3):
 		var panel = $CenterContainer/HBoxContainer.get_child(i)
-		panel.set_augment(augments[i])
+		panel.set_augment(augments[i-1])
 		panel.visible = true
 		
 	visible = true
 	print("hallo2")
-	get_tree().paused = true
 
-
-func _on_augment_selected() -> void:
+func _on_augment_selected(augment_data) -> void:
 	print("hallo")
 	visible = false
 	get_tree().paused = false
-	emit_signal("augment_selected", current_augments)
+	emit_signal("augment_selected", augment_data)

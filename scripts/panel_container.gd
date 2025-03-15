@@ -1,5 +1,5 @@
 extends PanelContainer
-signal selected
+signal selected(augment_data)
 
 @export var title_label: Label
 @export var description_label: Label
@@ -27,7 +27,7 @@ func _on_gui_input(event: InputEvent):
 
 func _on_button_pressed() -> void:
 	print("hallo3")
-	selected.emit()
+	selected.emit(current_augment)
 	scale = Vector2(0.95, 0.95)
 	await get_tree().create_timer(0.1).timeout
 	scale = Vector2(1.0, 1.0)# Replace with function body.

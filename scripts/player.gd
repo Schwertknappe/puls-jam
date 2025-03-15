@@ -60,8 +60,8 @@ func show_augment_selection():
 	augment_ui.augment_selected.connect(_on_augment_selected)
 	
 
-func _on_augment_selected(augment):
-	augment.apply.call(self)
+func _on_augment_selected(augment_data):
+	augment_data["apply"].call(self)
 	
 func _physics_process(delta):
 	# Add the gravity.

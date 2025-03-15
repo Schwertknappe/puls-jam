@@ -299,90 +299,90 @@ shape = SubResource("WorldBoundaryShape2D_kw13u")
 [node name="Player" parent="." instance=ExtResource("5_koekj")]
 position = Vector2(-201, 23)
 
-[node name="AugmentUI" type="CanvasLayer" parent="Player"]
+[node name="Path2D" parent="." instance=ExtResource("6_kw13u")]
+position = Vector2(63, 23)
+speed = 0.5
+
+[node name="AugmentUI" type="CanvasLayer" parent="."]
 script = ExtResource("6_im2du")
 
-[node name="CenterContainer" type="CenterContainer" parent="Player/AugmentUI"]
+[node name="CenterContainer" type="CenterContainer" parent="AugmentUI"]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player/AugmentUI/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AugmentUI/CenterContainer"]
 layout_mode = 2
 
-[node name="Augment1" type="PanelContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
+[node name="Augment1" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 script = ExtResource("7_im2du")
 title_label = NodePath("VBoxContainer/Title")
 description_label = NodePath("VBoxContainer/Description")
 icon_texture = NodePath("VBoxContainer/TextureRect")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
 
-[node name="Description" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
 
-[node name="Augment2" type="PanelContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
+[node name="Augment2" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 script = ExtResource("7_im2du")
 title_label = NodePath("VBoxContainer2/Title")
 description_label = NodePath("VBoxContainer2/Description")
 icon_texture = NodePath("VBoxContainer2/TextureRect")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Description" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Augment3" type="PanelContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
+[node name="Augment3" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 script = ExtResource("7_im2du")
 title_label = NodePath("VBoxContainer3/Title")
 description_label = NodePath("VBoxContainer3/Description")
 icon_texture = NodePath("VBoxContainer3/TextureRect")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Description" type="Label" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Path2D" parent="." instance=ExtResource("6_kw13u")]
-position = Vector2(63, 23)
-speed = 0.5
-
-[connection signal="augment_selected" from="Player/AugmentUI" to="Player" method="_on_augment_selected"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer/Button" to="Player/AugmentUI" method="_on_augment_selected"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer/Button" to="Player/AugmentUI/CenterContainer/HBoxContainer/Augment1" method="_on_button_pressed"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2/Button" to="Player/AugmentUI" method="_on_button_pressed"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2/Button" to="Player/AugmentUI" method="_on_augment_selected"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3/Button" to="Player/AugmentUI" method="_on_button_pressed"]
-[connection signal="pressed" from="Player/AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3/Button" to="Player/AugmentUI" method="_on_augment_selected"]
+[connection signal="augment_selected" from="AugmentUI" to="Player" method="_on_augment_selected"]
+[connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment1" to="AugmentUI" method="_on_augment_selected"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment1" method="_on_button_pressed"]
+[connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment2" to="AugmentUI" method="_on_augment_selected"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment2" method="_on_button_pressed"]
+[connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment3" to="AugmentUI" method="_on_augment_selected"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment3" method="_on_button_pressed"]
