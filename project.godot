@@ -11,13 +11,16 @@ config_version=5
 [application]
 
 config/name="Puls Jam"
-run/main_scene="res://scenes/levels/test.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+run/main_scene="uid://3jgyt6k76jkp"
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+AugmentDate="*res://AugmentData.gd"
+AugmentUi="*res://scripts/augment_ui.gd"
+Globals="*res://scripts/globals.gd"
 
 [display]
 
@@ -102,6 +105,7 @@ shoot={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="Walls"
+2d_physics/layer_4="Ladders"
 
 [physics]
 

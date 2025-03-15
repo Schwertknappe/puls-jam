@@ -1,11 +1,12 @@
-[gd_scene load_steps=14 format=4 uid="uid://cqkv2wqcavnlk"]
+[gd_scene load_steps=15 format=4 uid="uid://cqkv2wqcavnlk"]
 
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
+[ext_resource type="PackedScene" uid="uid://cjtqjuvxadd3p" path="res://scenes/menus/ui.tscn" id="1_kw13u"]
+[ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
+[ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
+[ext_resource type="Script" uid="uid://b7xdnsaj5h3pb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_7115g"]
 [ext_resource type="PackedScene" uid="uid://b510na63oy3qi" path="res://scenes/player.tscn" id="5_koekj"]
 [ext_resource type="Texture2D" uid="uid://cdsa4s31emco" path="res://assets/tilesets/Dungeon Tile Set.png" id="6_koekj"]
-[ext_resource type="PackedScene" uid="uid://jjuvch6rcsl4" path="res://scenes/enemies/path_enemy.tscn" id="6_kw13u"]
+[ext_resource type="PackedScene" uid="uid://jjuvch6rcsl4" path="res://scenes/enemies/drone.tscn" id="6_kw13u"]
 
 [sub_resource type="Resource" id="Resource_koekj"]
 script = ExtResource("2_7115g")
@@ -238,6 +239,8 @@ size = Vector2(826, 556)
 
 [node name="Node2D" type="Node2D"]
 
+[node name="UI" parent="." instance=ExtResource("1_kw13u")]
+
 [node name="Camera" type="Node" parent="."]
 
 [node name="PhantomCamera2D" type="Node2D" parent="Camera" node_paths=PackedStringArray("follow_target")]
@@ -250,6 +253,7 @@ tween_resource = SubResource("Resource_koekj")
 follow_offset = Vector2(0, -64)
 dead_zone_width = 0.1
 dead_zone_height = 0.25
+draw_limits = true
 limit_target = NodePath("../../World/Area2D/Camera Bounds")
 metadata/_custom_type_script = "uid://cbwboxrl1cgvs"
 

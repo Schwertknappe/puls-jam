@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://buhqf7ob7taj"]
+
+[ext_resource type="Script" uid="uid://chd6wdpj5x0al" path="res://scripts/piston.gd" id="1_8y48j"]
+[ext_resource type="Texture2D" uid="uid://dku1gllk1sg5y" path="res://assets/sprites/piston.png" id="1_ei3h4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7vsh"]
+size = Vector2(32, 5)
+
+[sub_resource type="Animation" id="Animation_m152t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vnmsg"]
+resource_name = "recall"
+length = 0.6
+step = 0.015
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.358209, 0.447761, 0.507463),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 6, 5, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_8y48j"]
+resource_name = "spring"
+length = 0.6
+step = 0.0133
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.106667, 0.133333, 0.16, 0.186667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ney3"]
+_data = {
+&"RESET": SubResource("Animation_m152t"),
+&"recall": SubResource("Animation_vnmsg"),
+&"spring": SubResource("Animation_8y48j")
+}
+
+[node name="Piston" type="Area2D"]
+script = ExtResource("1_8y48j")
+bounce_height = -600
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_s7vsh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_ei3h4")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3ney3")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

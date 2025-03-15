@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://i1236ulu16x8"]
+
+[ext_resource type="Script" uid="uid://dd6p7ps0iuqfu" path="res://scripts/saw.gd" id="1_3gw76"]
+[ext_resource type="Script" uid="uid://bk50erov17vqt" path="res://scripts/enemy.gd" id="1_rg3af"]
+[ext_resource type="Texture2D" uid="uid://blnepmlpq5xi1" path="res://assets/sprites/saw_idle.png" id="2_3gw76"]
+
+[sub_resource type="Curve2D" id="Curve2D_im2du"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -100, 0, 0, 0, 0, 0, 100, 0)
+}
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxmka"]
+radius = 13.0
+height = 32.0
+
+[sub_resource type="Animation" id="Animation_pw5sh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_16nks"]
+resource_name = "walking"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ixof7"]
+_data = {
+&"RESET": SubResource("Animation_pw5sh"),
+&"walking": SubResource("Animation_16nks")
+}
+
+[node name="Saw" type="Path2D"]
+z_index = -12
+curve = SubResource("Curve2D_im2du")
+script = ExtResource("1_3gw76")
+speed = 0.5
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-100, 0)
+
+[node name="Enemy" type="CharacterBody2D" parent="PathFollow2D"]
+collision_layer = 2
+script = ExtResource("1_rg3af")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy"]
+shape = SubResource("CapsuleShape2D_nxmka")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Enemy"]
+position = Vector2(-1, -14)
+rotation = 1.5708
+texture = ExtResource("2_3gw76")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/Enemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_ixof7")
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
