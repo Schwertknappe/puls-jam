@@ -147,6 +147,9 @@ script = ExtResource("1_g2els")
 WALLJUMP_VELOCITY = Vector2(200, -400)
 wall_cling_modifier = 0.1
 climb_speed = 75.0
+land_sfx_volume = -10
+jump_sfx_volume = 5
+die_sfx_volume = -2
 
 [node name="Gun" parent="." instance=ExtResource("2_p34hb")]
 position = Vector2(0, 5)
@@ -179,6 +182,8 @@ collision_mask = 5
 hit_from_inside = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
