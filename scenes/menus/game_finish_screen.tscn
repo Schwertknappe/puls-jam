@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsurt5c4wvw0n"]
+[gd_scene load_steps=3 format=3 uid="uid://bsurt5c4wvw0n"]
 
 [ext_resource type="Script" uid="uid://d3vspd1js0xmr" path="res://scripts/game_finish_screen.gd" id="1_gxkr7"]
+[ext_resource type="FontFile" uid="uid://4aeeog1x82ta" path="res://assets/fonts/PixelifySans-Bold.ttf" id="2_m1k4y"]
 
 [node name="GameFinishScreen" type="Control"]
 layout_mode = 3
@@ -28,12 +29,14 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_m1k4y")
 theme_override_font_sizes/font_size = 76
 text = "SUCCESS"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_m1k4y")
 theme_override_font_sizes/font_size = 24
 text = "You escaped! Congratulations!
 "
@@ -43,6 +46,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_m1k4y")
 text = "BACK TO MENU"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -258,6 +258,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_5whuu")
 text = "TRY AGAIN"
 
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment1" to="AugmentUI" method="_on_augment_selected"]

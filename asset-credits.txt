@@ -22,3 +22,7 @@ Assets:
 	https://freesound.org/people/frankum/sounds/256593/
 	https://freesound.org/people/Ev-Dawg/sounds/337434/
 	https://pixabay.com/sound-effects/land2-43790/
+	https://dafont.style/download/wingdings-font.html
+	https://fonts.google.com/specimen/Roboto
+	https://fonts.google.com/specimen/Pixelify+Sans
+	https://www.dafont.com/glitch-goblin.font

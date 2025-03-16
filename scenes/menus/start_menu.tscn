@@ -46,12 +46,14 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "START"
 
 [node name="ControlsButton" type="Button" parent="Start/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "How to Play"
 
 [node name="ControlsMenu" type="CanvasLayer" parent="."]
@@ -79,6 +81,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_pm0y6")
 theme_override_font_sizes/font_size = 30
 text = "How to Play"
 horizontal_alignment = 1
@@ -118,6 +121,7 @@ stretch_mode = 2
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Move"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Move"
 
 [node name="Jump" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
@@ -143,6 +147,7 @@ stretch_mode = 2
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Jump"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Jump, Double Jump, Wall Jump"
 
 [node name="Shoot" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
@@ -168,6 +173,7 @@ stretch_mode = 2
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Shoot"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Shoot"
 
 [node name="Respawn" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
@@ -193,6 +199,7 @@ stretch_mode = 2
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Respawn"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Respawn (takes a life)"
 
 [node name="Accept" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
@@ -218,12 +225,14 @@ stretch_mode = 2
 [node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Accept"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Accept"
 
 [node name="BackButton" type="Button" parent="ControlsMenu/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "Back"
 
 [connection signal="pressed" from="Start/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
