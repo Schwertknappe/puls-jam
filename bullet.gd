@@ -17,8 +17,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Enemy:
+	if body is not Player:
 		queue_free()
-		body.queue_free()
-	if body is not Player and body is CollisionShape2D:
-		queue_free()
+		if body is Enemy:
+			body.queue_free()
