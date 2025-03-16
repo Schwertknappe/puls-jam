@@ -29,7 +29,7 @@ signal game_over
 @export var can_walk_left: bool = true
 @export var can_walk_right: bool = true
 
-enum State {IDLE, WALKING, JUMPING, LANDING, CLIMBING}
+enum State {IDLE, WALKING, JUMPING, LANDING, CLIMBING, FALLING}
 
 var current_speed = SPEED
 var double_jump_available = false
@@ -138,8 +138,9 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		direction *= 0.1
-		if not is_on_wall() and state != State.CLIMBING:
-			state = State.JUMPING
+		if not is_on_wall() and state != State.CLIMBING and state != State.JUMPING:
+			state = State.FALLING
+			animation_player.play("fall")
 	
 	if direction and input_enabled:
 		velocity.x += direction * current_speed
@@ -154,6 +155,7 @@ func _physics_process(delta):
 	
 	var v_direction = Input.get_axis("move_up", "move_down")
 	if v_direction and can_climb:
+		animation_player.play("climb")
 		state = State.CLIMBING
 		if double_jump_enabled != double_jump_available:
 			double_jump_available = double_jump_enabled
@@ -162,7 +164,7 @@ func _physics_process(delta):
 		velocity.y = 0.0
 	
 	# check if player just landed and reset double jump
-	if is_on_floor() and state == State.JUMPING:
+	if is_on_floor() and (state == State.JUMPING or state == State.FALLING):
 		_land()
 	
 	if was_grounded_last_frame and !is_on_floor() and state != State.JUMPING:
@@ -237,12 +239,18 @@ func _handle_animation(delta, direction):
 	if gravity_modifier < 0.0 != sprite.flip_v:
 		sprite.flip_v = ! sprite.flip_v
 	
-	if velocity.x != 0.0 and state != State.JUMPING and state != State.LANDING and state != State.CLIMBING:
+	if velocity.x != 0.0 and state != State.JUMPING and state != State.LANDING and state != State.CLIMBING and state != State.FALLING:
 		animation_player.play("walk")
 		state = State.WALKING
 	elif is_on_floor() and state != State.LANDING and state != State.JUMPING:
 		state = State.IDLE
 		animation_player.play("idle")
+	
+	if state == State.CLIMBING:
+		if velocity.y == 0.0:
+			animation_player.pause()
+		else:
+			animation_player.play(animation_player.current_animation)
 
 func _flip_horizontally():
 	sprite.flip_h = !sprite.flip_h
