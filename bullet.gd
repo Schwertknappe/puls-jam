@@ -19,8 +19,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Player:
-		$Projectile.visible = false
-		$CollisionShape2D.disabled = true
+		$Projectile.set_deferred("visible", false)
+		$CollisionShape2D.set_deferred("disabled", true)
 		if body is Enemy:
 			sfx_player.stream = load("res://assets/sfx/enemy_death_sound.wav")
 			sfx_player.play()
