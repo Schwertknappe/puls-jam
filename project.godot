@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Puls Jam"
-run/main_scene="uid://3jgyt6k76jkp"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+run/main_scene="res://scenes/levels/level_test.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]

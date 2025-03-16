@@ -249,6 +249,7 @@ func _flip_horizontally():
 	gun.flip_h = !gun.flip_h
 	gun.scale.x *= -1
 	
+	
 
 func respawn():
 	lives_left -= 1
