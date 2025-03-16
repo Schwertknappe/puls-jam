@@ -14,3 +14,10 @@ func _physics_process(delta: float) -> void:
 	const MAX_RANGE = 500
 	if travelled_distance > MAX_RANGE:
 		queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is not Player:
+		queue_free()
+		if body is Enemy:
+			body.queue_free()
