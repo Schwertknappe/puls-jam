@@ -205,7 +205,7 @@ func _jump():
 		_flip_horizontally()
 	
 	# use double jump
-	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING and coyote_timer.time_left <= 0.0 and double_jump_enabled:
+	if not is_on_floor() and not (wall_check.is_colliding() and walljump_enabled) and state != State.CLIMBING and coyote_timer.time_left <= 0.0 and double_jump_enabled:
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
