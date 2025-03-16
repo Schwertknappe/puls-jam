@@ -30,6 +30,11 @@ signal restriction_added
 @export var can_walk_left: bool = true
 @export var can_walk_right: bool = true
 
+@export_category("Audio")
+@export var land_sfx_volume = 1
+@export var jump_sfx_volume = 1
+@export var die_sfx_volume = 1
+
 enum State {IDLE, WALKING, JUMPING, LANDING, CLIMBING, FALLING}
 
 var current_speed = SPEED
@@ -190,7 +195,7 @@ func _can_jump() -> bool:
 	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available and double_jump_enabled))
 
 func _jump():
-	play_sound("res://assets/sfx/jump_sound.wav")
+	play_sound("res://assets/sfx/jump_sound.wav", jump_sfx_volume)
 	
 	current_speed = SPEED
 	velocity.y = JUMP_VELOCITY
@@ -218,7 +223,7 @@ func _jump():
 
 
 func _land():
-	play_sound("res://assets/sfx/land2-43790.mp3")
+	play_sound("res://assets/sfx/land2-43790.mp3", land_sfx_volume)
 	
 	state = State.LANDING
 	if double_jump_enabled:
@@ -280,7 +285,7 @@ func respawn():
 	velocity = Vector2(0.0,0.0)
 
 func die():
-	play_sound("res://assets/sfx/player_death_sound.wav")
+	play_sound("res://assets/sfx/player_death_sound.wav", die_sfx_volume)
 	
 	hide() # Player disappears after being hit.
 	lives_left -= 1
@@ -300,8 +305,9 @@ func tile_has_property(tile_map : TileMapLayer, property : String) -> bool:
 	return false
 
 
-func play_sound(sound_path):
+func play_sound(sound_path, volume):
 	sfx_player.stream = load(sound_path)
+	sfx_player.volume_db = volume
 	sfx_player.play()
 
 # SIGNALS

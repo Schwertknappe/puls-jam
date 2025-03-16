@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://i1236ulu16x8"]
+[gd_scene load_steps=10 format=3 uid="uid://i1236ulu16x8"]
 
 [ext_resource type="Script" uid="uid://dd6p7ps0iuqfu" path="res://scripts/saw.gd" id="1_3gw76"]
 [ext_resource type="Script" uid="uid://bk50erov17vqt" path="res://scripts/enemy.gd" id="1_rg3af"]
 [ext_resource type="Texture2D" uid="uid://blnepmlpq5xi1" path="res://assets/sprites/saw_idle.png" id="2_3gw76"]
+[ext_resource type="AudioStream" uid="uid://b335tjfc6kobd" path="res://assets/sfx/saw_sound.wav" id="4_7a3gq"]
 
 [sub_resource type="Curve2D" id="Curve2D_im2du"]
 _data = {
@@ -103,6 +104,12 @@ hframes = 6
 libraries = {
 &"": SubResource("AnimationLibrary_ixof7")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PathFollow2D/Enemy"]
+stream = ExtResource("4_7a3gq")
+volume_db = -24.0
+autoplay = true
+attenuation = 9.18957
 
 [node name="Timer" type="Timer" parent="."]
 

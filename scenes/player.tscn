@@ -147,6 +147,9 @@ script = ExtResource("1_g2els")
 WALLJUMP_VELOCITY = Vector2(200, -400)
 wall_cling_modifier = 0.1
 climb_speed = 75.0
+land_sfx_volume = -10
+jump_sfx_volume = 5
+die_sfx_volume = -2
 
 [node name="Gun" parent="." instance=ExtResource("2_p34hb")]
 position = Vector2(0, 5)
