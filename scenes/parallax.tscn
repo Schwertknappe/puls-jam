@@ -21,8 +21,10 @@ texture = ExtResource("1_quimm")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Clouds"]
 position = Vector2(0.2, 0.2)
+motion_scale = Vector2(0.2, 0.2)
 
 [node name="Sprite2D" type="Sprite2D" parent="Clouds/ParallaxLayer"]
+self_modulate = Color(1, 1, 1, 0.392157)
 scale = Vector2(2, 2)
 texture = ExtResource("2_yvlf7")
 
@@ -32,6 +34,7 @@ texture = ExtResource("2_yvlf7")
 motion_scale = Vector2(0.3, 0.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="FarBuildings/ParallaxLayer"]
+self_modulate = Color(1, 0.82, 0.82, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("3_hankl")
 
