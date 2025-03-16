@@ -7,3 +7,7 @@ Assets:
 	https://opengameart.org/content/exit-door
 	https://godotshaders.com/shader/god-rays/
 	https://fliflifly.itch.io/hearts-and-health-bar
+	Input Prompts Pixel 16× (1.0)
+		Created/distributed by Kenney (www.kenney.nl)
+		Creation date: 23-09-2021
+	

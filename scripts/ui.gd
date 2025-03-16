@@ -29,4 +29,5 @@ func update_health_ui():
 
 func _on_game_over_button_pressed():
 	Globals.first_run = true
+	Globals.completed_runs = 0
 	get_tree().reload_current_scene()
