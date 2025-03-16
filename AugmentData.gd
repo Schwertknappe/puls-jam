@@ -73,4 +73,4 @@ static var AUGMENTS = [
 static func get_random_augments(count: int) -> Array:
 	var shuffled = AUGMENTS.duplicate()
 	shuffled.shuffle()
-	return shuffled.slice(0, count - 1)
+	return shuffled.slice(0, count)

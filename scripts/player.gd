@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 signal hit
+signal game_over
 
 @export_category("General Variables")
 @export_range(1, 10, 1) var MAX_LIVES = 3
@@ -122,8 +123,11 @@ func _physics_process(delta):
 	else:
 		direction = Input.get_axis("move_right", "move_left")
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and can_shoot:
 		$Gun.shoot()
+	
+	if Input.is_action_just_pressed("respawn"):
+		die()
 	
 	_check_wall_cling(direction)
 	
@@ -251,25 +255,25 @@ func _flip_horizontally():
 	
 
 func respawn():
-	lives_left -= 1
 	show()
 	collider.set_deferred("disabled", false)
 	transform.origin = start_position
-	sprite.flip_h = false
+	if sprite.flip_h:
+		_flip_horizontally()
 	animation_player.play("idle")
 	state = State.IDLE
 	velocity = Vector2(0.0,0.0)
 
 func die():
 	hide() # Player disappears after being hit.
+	lives_left -= 1
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	collider.set_deferred("disabled", true) # Replace with function body.
 	if lives_left > 0:
 		respawn()
 	else:
-		Globals.first_run = true
-		get_tree().reload_current_scene()
+		game_over.emit()
 
 func tile_has_property(tile_map : TileMapLayer, property : String) -> bool:
 	var tile_coords = tile_map.local_to_map(global_position)

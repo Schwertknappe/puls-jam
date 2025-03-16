@@ -11,10 +11,8 @@ func show_augments(augments: Array):
 		panel.visible = true
 		
 	visible = true
-	print("hallo2")
 
 func _on_augment_selected(augment_data) -> void:
-	print("hallo")
 	visible = false
 	get_tree().paused = false
 	emit_signal("augment_selected", augment_data)
