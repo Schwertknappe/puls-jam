@@ -3,6 +3,7 @@ class_name Player
 
 signal hit
 signal game_over
+signal restriction_added
 
 @export_category("General Variables")
 @export_range(1, 10, 1) var MAX_LIVES = 3
@@ -103,6 +104,7 @@ func _setup_safety_checks():
 
 func _on_augment_selected(augment_data):
 	augment_data["apply"].call(self)
+	restriction_added.emit()
 	_setup_safety_checks()
 	
 func _physics_process(delta):

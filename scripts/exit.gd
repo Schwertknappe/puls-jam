@@ -8,6 +8,9 @@ func _on_body_entered(body):
 		
 		if Globals.completed_runs >= 3:
 			get_tree().change_scene_to_file("res://scenes/menus/game_finish_screen.tscn")
+			Globals.first_run = true
+			Globals.completed_runs = 0
+			Globals.chosen_restrictions = []
 		else:
 			Globals.SPEED = body.SPEED
 			Globals.JUMP_VELOCITY = body.JUMP_VELOCITY

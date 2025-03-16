@@ -13,6 +13,7 @@ func show_augments(augments: Array):
 	visible = true
 
 func _on_augment_selected(augment_data) -> void:
+	Globals.chosen_restrictions.append(augment_data)
 	visible = false
 	get_tree().paused = false
 	emit_signal("augment_selected", augment_data)
