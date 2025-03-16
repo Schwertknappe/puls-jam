@@ -146,7 +146,6 @@ description_label = NodePath("VBoxContainer/Description")
 icon_texture = NodePath("VBoxContainer/TextureRect")
 
 [node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1"]
-clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 
