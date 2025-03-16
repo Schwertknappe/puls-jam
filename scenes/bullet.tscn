@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dxkf2qw180a23" path="res://bullet.gd" id="1_umxvl"]
 [ext_resource type="Texture2D" uid="uid://y43nmnsotbk8" path="res://assets/sprites/bullet.png" id="2_087qe"]
-[ext_resource type="Script" uid="uid://nngqut5d2yhn" path="res://projectile.gd" id="3_hqhtr"]
+[ext_resource type="Script" uid="uid://depiirwnsmy4c" path="res://projectile.gd" id="3_hqhtr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57hl0"]
 radius = 4.0
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_umxvl")
 
 [node name="Projectile" type="Sprite2D" parent="."]
