@@ -21,6 +21,7 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 AugmentDate="*res://AugmentData.gd"
 AugmentUi="*res://scripts/augment_ui.gd"
 Globals="*res://scripts/globals.gd"
+MusicPlayer="*res://scenes/music_player.tscn"
 
 [display]
 

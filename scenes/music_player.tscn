@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbymlgwsiqlwv"]
+
+[ext_resource type="AudioStream" uid="uid://c4fwuli2jsttn" path="res://assets/music/Kick Shock.mp3" id="1_jxdhu"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_jxdhu")
+volume_db = -13.0
+autoplay = true
+bus = &"Music"
