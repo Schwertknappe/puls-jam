@@ -9,12 +9,6 @@ static var AUGMENTS = [
 	"apply": func(p): p.double_jump_enabled = false
 },
 {
-	"title": "Anti-Grav",
-	"description": "Reversed Gravity",
-	"icon": preload("res://assets/sprites/Walk.png"),
-	"apply": func(p): p.gravity_modifier = -1.0
-},
-{
 	"title": "<-->",
 	"description": "Left is right?",
 	"icon": preload("res://assets/sprites/Walk.png"),

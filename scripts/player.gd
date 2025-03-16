@@ -165,7 +165,7 @@ func _physics_process(delta):
 	if is_on_floor() and state == State.JUMPING:
 		_land()
 	
-	if was_grounded_last_frame and !is_on_floor():
+	if was_grounded_last_frame and !is_on_floor() and state != State.JUMPING:
 		coyote_timer.start(coyote_time_length)
 	elif !was_grounded_last_frame and is_on_floor():
 		coyote_timer.stop()
@@ -182,7 +182,7 @@ func _physics_process(delta):
 
 
 func _can_jump() -> bool:
-	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
+	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available and double_jump_enabled))
 
 func _jump():
 	current_speed = SPEED
@@ -206,7 +206,6 @@ func _jump():
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
 	
-	coyote_timer.stop()
 	state = State.JUMPING
 	animation_player.play("jump")
 
