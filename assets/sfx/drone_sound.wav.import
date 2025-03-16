@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://mq0hpu8cfuvb"
-path="res://.godot/imported/jump_sound.wav-f2d1ebf8bd5495cf4b9d3d48c1085b8b.sample"
+uid="uid://cigoo5mtc0drm"
+path="res://.godot/imported/drone_sound.wav-d573a4699baed992f0bec441b371c7c0.sample"
 
 [deps]
 
-source_file="res://assets/sfx/jump_sound.wav"
-dest_files=["res://.godot/imported/jump_sound.wav-f2d1ebf8bd5495cf4b9d3d48c1085b8b.sample"]
+source_file="res://assets/sfx/drone_sound.wav"
+dest_files=["res://.godot/imported/drone_sound.wav-d573a4699baed992f0bec441b371c7c0.sample"]
 
 [params]
 

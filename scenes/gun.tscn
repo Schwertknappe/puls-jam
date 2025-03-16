@@ -5,9 +5,12 @@
 [sub_resource type="GDScript" id="GDScript_8a6bc"]
 script/source = "extends Sprite2D
 
-
+@onready var sfx_player = $AudioStreamPlayer2D
 
 func shoot():
+	sfx_player.stream = load(\"res://assets/sfx/bullet_sound.wav\")
+	sfx_player.play()
+	
 	const BULLET = preload(\"res://scenes/bullet.tscn\")
 	
 	var new_bullet = BULLET.instantiate()
@@ -32,3 +35,5 @@ texture = ExtResource("1_222is")
 
 [node name="ShootingPoint" type="Marker2D" parent="Raygun"]
 position = Vector2(-4, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
