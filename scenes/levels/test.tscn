@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=4 uid="uid://cqkv2wqcavnlk"]
+[gd_scene load_steps=16 format=4 uid="uid://cqkv2wqcavnlk"]
 
+[ext_resource type="Texture2D" uid="uid://b6n46mjbv8j8t" path="res://assets/background/1.png" id="1_im2du"]
 [ext_resource type="PackedScene" uid="uid://cjtqjuvxadd3p" path="res://scenes/menus/ui.tscn" id="1_kw13u"]
 [ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uyl1e"]
 [ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_7115g"]
@@ -243,12 +244,11 @@ size = Vector2(826, 556)
 
 [node name="Camera" type="Node" parent="."]
 
-[node name="PhantomCamera2D" type="Node2D" parent="Camera" node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="Camera"]
 top_level = true
-position = Vector2(-78, -48)
+position = Vector2(-78, -236)
 script = ExtResource("1_uyl1e")
 follow_mode = 5
-follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_koekj")
 follow_offset = Vector2(0, -64)
 dead_zone_width = 0.1
@@ -258,9 +258,7 @@ limit_target = NodePath("../../World/Area2D/Camera Bounds")
 metadata/_custom_type_script = "uid://cbwboxrl1cgvs"
 
 [node name="Camera2D" type="Camera2D" parent="Camera"]
-physics_interpolation_mode = 1
-position = Vector2(-78, -48)
-process_callback = 0
+position = Vector2(-78, -236)
 limit_left = -398
 limit_top = -424
 limit_right = 428
@@ -298,9 +296,13 @@ position = Vector2(430, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_kw13u")
 
-[node name="Player" parent="." instance=ExtResource("5_koekj")]
-position = Vector2(-201, 23)
-
 [node name="Path2D" parent="." instance=ExtResource("6_kw13u")]
 position = Vector2(63, 23)
 speed = 0.5
+
+[node name="Player" parent="." instance=ExtResource("5_koekj")]
+position = Vector2(-201, 23)
+
+[node name="1" type="Sprite2D" parent="."]
+position = Vector2(-55, -24)
+texture = ExtResource("1_im2du")

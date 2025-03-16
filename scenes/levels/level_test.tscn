@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=4 uid="uid://3jgyt6k76jkp"]
+[gd_scene load_steps=30 format=4 uid="uid://3jgyt6k76jkp"]
 
 [ext_resource type="PackedScene" uid="uid://cjtqjuvxadd3p" path="res://scenes/menus/ui.tscn" id="1_bc127"]
+[ext_resource type="PackedScene" uid="uid://b47k5uiw2n62m" path="res://scenes/parallax.tscn" id="1_dl0q5"]
 [ext_resource type="Script" uid="uid://cbwboxrl1cgvs" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_uh3ll"]
 [ext_resource type="Script" uid="uid://rungv0ohy8m7" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_4lw2e"]
 [ext_resource type="Script" uid="uid://b7xdnsaj5h3pb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_bqmi1"]
@@ -404,6 +405,8 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Parallax" parent="." instance=ExtResource("1_dl0q5")]
 
 [node name="UI" parent="." instance=ExtResource("1_bc127")]
 
