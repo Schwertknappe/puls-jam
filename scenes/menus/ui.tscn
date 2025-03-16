@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjtqjuvxadd3p"]
+[gd_scene load_steps=11 format=3 uid="uid://cjtqjuvxadd3p"]
 
 [ext_resource type="Script" uid="uid://dy705qen0attb" path="res://scripts/ui.gd" id="1_q7yx2"]
 [ext_resource type="Script" uid="uid://djsoolv38k73k" path="res://scripts/augment_ui.gd" id="2_ofsfp"]
 [ext_resource type="Texture2D" uid="uid://1pcixak5l172" path="res://assets/sprites/heart.png" id="2_yexht"]
 [ext_resource type="Texture2D" uid="uid://cdhvo851jklca" path="res://assets/sprites/mechanic-icons/back-forth.png" id="3_5whuu"]
 [ext_resource type="Script" uid="uid://c1w6tljlvwbd5" path="res://scripts/panel_container.gd" id="3_yexht"]
+[ext_resource type="FontFile" uid="uid://4aeeog1x82ta" path="res://assets/fonts/PixelifySans-Bold.ttf" id="6_5whuu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfplg"]
 bg_color = Color(1, 1, 1, 0.643137)
@@ -18,6 +19,33 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yexht"]
+bg_color = Color(0.197937, 0.197937, 0.197937, 0.615686)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5whuu"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.615686)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpul6"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.615686)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -111,6 +139,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Augment1" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yexht")
 script = ExtResource("3_yexht")
 title_label = NodePath("VBoxContainer/Title")
 description_label = NodePath("VBoxContainer/Description")
@@ -118,6 +147,7 @@ icon_texture = NodePath("VBoxContainer/TextureRect")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
@@ -133,65 +163,70 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1"]
+clip_contents = true
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Augment2" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5whuu")
 script = ExtResource("3_yexht")
-title_label = NodePath("VBoxContainer2/Title")
-description_label = NodePath("VBoxContainer2/Description")
-icon_texture = NodePath("VBoxContainer2/TextureRect")
+title_label = NodePath("VBoxContainer/Title")
+description_label = NodePath("VBoxContainer/Description")
+icon_texture = NodePath("VBoxContainer/TextureRect")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 stretch_mode = 3
 
-[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Augment3" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_mpul6")
 script = ExtResource("3_yexht")
-title_label = NodePath("VBoxContainer3/Title")
-description_label = NodePath("VBoxContainer3/Description")
-icon_texture = NodePath("VBoxContainer3/TextureRect")
+title_label = NodePath("VBoxContainer/Title")
+description_label = NodePath("VBoxContainer/Description")
+icon_texture = NodePath("VBoxContainer/TextureRect")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 stretch_mode = 3
 
-[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+[node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 3
 
 [node name="GameOver" type="CanvasLayer" parent="."]
 visible = false
@@ -211,6 +246,10 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="GameOver/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_5whuu")
 theme_override_font_sizes/font_size = 76
 text = "KAPUTT"
 horizontal_alignment = 1
@@ -222,9 +261,9 @@ size_flags_horizontal = 4
 text = "TRY AGAIN"
 
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment1" to="AugmentUI" method="_on_augment_selected"]
-[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment1" method="_on_button_pressed"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment1/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment1" method="_on_button_pressed"]
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment2" to="AugmentUI" method="_on_augment_selected"]
-[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment2" method="_on_button_pressed"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment2/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment2" method="_on_button_pressed"]
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment3" to="AugmentUI" method="_on_augment_selected"]
-[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment3" method="_on_button_pressed"]
+[connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment3/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment3" method="_on_button_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Button" to="." method="_on_game_over_button_pressed"]

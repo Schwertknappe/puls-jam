@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://buhqf7ob7taj"]
 
-[ext_resource type="Script" uid="uid://chd6wdpj5x0al" path="res://scripts/piston.gd" id="1_8y48j"]
+[ext_resource type="Script" path="res://scripts/piston.gd" id="1_8y48j"]
 [ext_resource type="Texture2D" uid="uid://dku1gllk1sg5y" path="res://assets/sprites/piston.png" id="1_ei3h4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7vsh"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://2opgor5lufa3"]
+[gd_scene load_steps=14 format=3 uid="uid://2opgor5lufa3"]
 
 [ext_resource type="Script" uid="uid://bt67tg4tv26bt" path="res://scripts/start_menu.gd" id="1_8tuso"]
+[ext_resource type="FontFile" uid="uid://4aeeog1x82ta" path="res://assets/fonts/PixelifySans-Bold.ttf" id="2_pm0y6"]
 [ext_resource type="Texture2D" uid="uid://dtqt1r56ixblr" path="res://assets/sprites/keys/tile_0086.png" id="2_wh12j"]
 [ext_resource type="Texture2D" uid="uid://cmwlhh7xa01c8" path="res://assets/sprites/keys/tile_0166.png" id="3_pm0y6"]
 [ext_resource type="Texture2D" uid="uid://y3ealsi230dp" path="res://assets/sprites/keys/tile_0034.png" id="4_6e57w"]
@@ -36,6 +37,7 @@ theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="Start/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_pm0y6")
 theme_override_font_sizes/font_size = 60
 text = "GAME NAME"
 horizontal_alignment = 1
