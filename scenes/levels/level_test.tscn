@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://bk50erov17vqt" path="res://scripts/enemy.gd" id="9_es4qh"]
 [ext_resource type="PackedScene" uid="uid://buhqf7ob7taj" path="res://scenes/piston.tscn" id="10_es4qh"]
 [ext_resource type="PackedScene" uid="uid://i1236ulu16x8" path="res://scenes/enemies/saw.tscn" id="11_tdlkl"]
-[ext_resource type="Script" path="res://scripts/drone.gd" id="12_tdlkl"]
+[ext_resource type="Script" uid="uid://be8dmf351da7r" path="res://scripts/drone.gd" id="12_tdlkl"]
 [ext_resource type="Texture2D" uid="uid://x5ydke3l0tan" path="res://assets/sprites/Walk.png" id="14_bc127"]
 
 [sub_resource type="Resource" id="Resource_nxmka"]

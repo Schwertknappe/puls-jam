@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://2opgor5lufa3"]
+[gd_scene load_steps=15 format=3 uid="uid://2opgor5lufa3"]
 
 [ext_resource type="Script" uid="uid://bt67tg4tv26bt" path="res://scripts/start_menu.gd" id="1_8tuso"]
+[ext_resource type="Texture2D" uid="uid://bcgydea3sqcct" path="res://assets/cover2.png" id="2_6e57w"]
 [ext_resource type="FontFile" uid="uid://4aeeog1x82ta" path="res://assets/fonts/PixelifySans-Bold.ttf" id="2_pm0y6"]
 [ext_resource type="Texture2D" uid="uid://dtqt1r56ixblr" path="res://assets/sprites/keys/tile_0086.png" id="2_wh12j"]
 [ext_resource type="Texture2D" uid="uid://cmwlhh7xa01c8" path="res://assets/sprites/keys/tile_0166.png" id="3_pm0y6"]
@@ -25,21 +26,34 @@ script = ExtResource("1_8tuso")
 
 [node name="Start" type="CanvasLayer" parent="."]
 
+[node name="TextureRect" type="TextureRect" parent="Start"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6e57w")
+expand_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Start"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 68.0
-offset_bottom = -65.0
+offset_left = 353.0
+offset_top = 25.0
+offset_right = -54.0
+offset_bottom = -241.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="Start/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_pm0y6")
 theme_override_font_sizes/font_size = 60
-text = "GAME NAME"
+text = "BERTI'S FACTORY
+ESCAPE"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="Start/VBoxContainer"]
@@ -50,7 +64,7 @@ theme_override_fonts/font = ExtResource("2_pm0y6")
 text = "START"
 
 [node name="ControlsButton" type="Button" parent="Start/VBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_pm0y6")

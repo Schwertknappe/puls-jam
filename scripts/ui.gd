@@ -1,5 +1,4 @@
 extends Control
-@onready var ui = $UI 
 
 @export var font_paths: Array[String] = [
 	"res://assets/fonts/GlitchGoblin.ttf",
@@ -23,7 +22,6 @@ func _ready():
 
 func show_augment_selection():
 	var augments = AugmentData.get_random_augments(3)
-	augment_ui.ui = $UI
 	augment_ui.show_augments(augments)
 	augment_ui.augment_selected.connect(player._on_augment_selected)
 	player.restriction_added.connect(update_restriction_ui)
@@ -32,10 +30,6 @@ func show_augment_selection():
 		var panel = $AugmentUI/CenterContainer/HBoxContainer.get_child(i)
 		var title_label = panel.get_node("VBoxContainer/Title")
 		var description_label = panel.get_node("VBoxContainer/Description")
-
-		print("Titel-Label gefunden:", title_label != null)
-		print("Beschreibung-Label gefunden:", description_label != null)
-
 		apply_random_font(title_label, 24)
 		apply_random_font(description_label, 18)
 
