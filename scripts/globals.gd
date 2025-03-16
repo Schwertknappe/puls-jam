@@ -1,6 +1,8 @@
 extends Node
 
 var first_run = true
+var completed_runs = 0
+var chosen_restrictions = []
 
 var SPEED = 200.0 
 var JUMP_VELOCITY = -300.0

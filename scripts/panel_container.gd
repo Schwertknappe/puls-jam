@@ -16,9 +16,7 @@ func set_augment(augment: Dictionary):
 	
 	
 func _on_gui_input(event: InputEvent):
-	print("hallo4")
 	if event is InputEventMouseButton and event.is_pressed():
-		print("hallo3")
 		selected.emit(current_augment)
 		scale = Vector2(0.95, 0.95)
 		await get_tree().create_timer(0.1).timeout
@@ -26,7 +24,6 @@ func _on_gui_input(event: InputEvent):
 
 
 func _on_button_pressed() -> void:
-	print("hallo3")
 	selected.emit(current_augment)
 	scale = Vector2(0.95, 0.95)
 	await get_tree().create_timer(0.1).timeout

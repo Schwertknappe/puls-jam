@@ -1,0 +1,229 @@
+[gd_scene load_steps=13 format=3 uid="uid://2opgor5lufa3"]
+
+[ext_resource type="Script" uid="uid://bt67tg4tv26bt" path="res://scripts/start_menu.gd" id="1_8tuso"]
+[ext_resource type="Texture2D" uid="uid://dtqt1r56ixblr" path="res://assets/sprites/keys/tile_0086.png" id="2_wh12j"]
+[ext_resource type="Texture2D" uid="uid://cmwlhh7xa01c8" path="res://assets/sprites/keys/tile_0166.png" id="3_pm0y6"]
+[ext_resource type="Texture2D" uid="uid://y3ealsi230dp" path="res://assets/sprites/keys/tile_0034.png" id="4_6e57w"]
+[ext_resource type="Texture2D" uid="uid://03l8ccvmkpch" path="res://assets/sprites/keys/tile_0212.png" id="5_uc52v"]
+[ext_resource type="Texture2D" uid="uid://c1xyfbgltvnei" path="res://assets/sprites/keys/tile_0235.png" id="6_gp6u6"]
+[ext_resource type="Texture2D" uid="uid://dt6k6lccfaevk" path="res://assets/sprites/keys/tile_0013.png" id="7_f8yhk"]
+[ext_resource type="Texture2D" uid="uid://cr5oelmj30vh7" path="res://assets/sprites/keys/tile_0087.png" id="8_rg8fw"]
+[ext_resource type="Texture2D" uid="uid://cyxwhuhedjese" path="res://assets/sprites/keys/tile_0015.png" id="9_gutkn"]
+[ext_resource type="Texture2D" uid="uid://b3bepw4t3stky" path="res://assets/sprites/keys/tile_0094.png" id="10_oiwb3"]
+[ext_resource type="Texture2D" uid="uid://dg752pjos52o3" path="res://assets/sprites/keys/tile_0768.png" id="11_ihvjt"]
+[ext_resource type="Texture2D" uid="uid://ixem0ostmg4w" path="res://assets/sprites/keys/tile_0134.png" id="12_crjjd"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8tuso")
+
+[node name="Start" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 68.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Start/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "GAME NAME"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Start/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "START"
+
+[node name="ControlsButton" type="Button" parent="Start/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "How to Play"
+
+[node name="ControlsMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ControlsMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.376471, 0.435294, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 69.0
+offset_top = 51.0
+offset_right = -60.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "How to Play"
+horizontal_alignment = 1
+
+[node name="Move" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 315
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsMenu/VBoxContainer/Move"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsMenu/VBoxContainer/Move/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_wh12j")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="ControlsMenu/VBoxContainer/Move/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_pm0y6")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ControlsMenu/VBoxContainer/Move/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_6e57w")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="ControlsMenu/VBoxContainer/Move/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_uc52v")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Move"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Move"
+
+[node name="Jump" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 195
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsMenu/VBoxContainer/Jump"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsMenu/VBoxContainer/Jump/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_gp6u6")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ControlsMenu/VBoxContainer/Jump/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_f8yhk")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Jump"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Jump, Double Jump, Wall Jump"
+
+[node name="Shoot" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 414
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsMenu/VBoxContainer/Shoot"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsMenu/VBoxContainer/Shoot/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_rg8fw")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ControlsMenu/VBoxContainer/Shoot/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_gutkn")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Shoot"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Shoot"
+
+[node name="Respawn" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 290
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsMenu/VBoxContainer/Respawn"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsMenu/VBoxContainer/Respawn/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_oiwb3")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ControlsMenu/VBoxContainer/Respawn/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("11_ihvjt")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Respawn"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Respawn (takes a life)"
+
+[node name="Accept" type="HBoxContainer" parent="ControlsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 390
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsMenu/VBoxContainer/Accept"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsMenu/VBoxContainer/Accept/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_crjjd")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ControlsMenu/VBoxContainer/Accept/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_f8yhk")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="ControlsMenu/VBoxContainer/Accept"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Accept"
+
+[node name="BackButton" type="Button" parent="ControlsMenu/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[connection signal="pressed" from="Start/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Start/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="ControlsMenu/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

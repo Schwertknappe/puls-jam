@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 signal hit
+signal game_over
+signal restriction_added
 
 @export_category("General Variables")
 @export_range(1, 10, 1) var MAX_LIVES = 3
@@ -28,7 +30,7 @@ signal hit
 @export var can_walk_left: bool = true
 @export var can_walk_right: bool = true
 
-enum State {IDLE, WALKING, JUMPING, LANDING, CLIMBING}
+enum State {IDLE, WALKING, JUMPING, LANDING, CLIMBING, FALLING}
 
 var current_speed = SPEED
 var double_jump_available = false
@@ -102,6 +104,7 @@ func _setup_safety_checks():
 
 func _on_augment_selected(augment_data):
 	augment_data["apply"].call(self)
+	restriction_added.emit()
 	_setup_safety_checks()
 	
 func _physics_process(delta):
@@ -122,8 +125,11 @@ func _physics_process(delta):
 	else:
 		direction = Input.get_axis("move_right", "move_left")
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and can_shoot:
 		$Gun.shoot()
+	
+	if Input.is_action_just_pressed("respawn"):
+		die()
 	
 	_check_wall_cling(direction)
 	
@@ -134,8 +140,9 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		direction *= 0.1
-		if not is_on_wall() and state != State.CLIMBING:
-			state = State.JUMPING
+		if not is_on_wall() and state != State.CLIMBING and state != State.JUMPING:
+			state = State.FALLING
+			animation_player.play("fall")
 	
 	if direction and input_enabled:
 		velocity.x += direction * current_speed
@@ -150,6 +157,7 @@ func _physics_process(delta):
 	
 	var v_direction = Input.get_axis("move_up", "move_down")
 	if v_direction and can_climb:
+		animation_player.play("climb")
 		state = State.CLIMBING
 		if double_jump_enabled != double_jump_available:
 			double_jump_available = double_jump_enabled
@@ -158,10 +166,10 @@ func _physics_process(delta):
 		velocity.y = 0.0
 	
 	# check if player just landed and reset double jump
-	if is_on_floor() and state == State.JUMPING:
+	if is_on_floor() and (state == State.JUMPING or state == State.FALLING):
 		_land()
 	
-	if was_grounded_last_frame and !is_on_floor():
+	if was_grounded_last_frame and !is_on_floor() and state != State.JUMPING:
 		coyote_timer.start(coyote_time_length)
 	elif !was_grounded_last_frame and is_on_floor():
 		coyote_timer.stop()
@@ -178,7 +186,7 @@ func _physics_process(delta):
 
 
 func _can_jump() -> bool:
-	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available))
+	return jump_enabled and (is_on_floor() or coyote_timer.time_left > 0.0 or (wall_check.is_colliding() and walljump_enabled) or state == State.CLIMBING or (!is_on_floor() and double_jump_available and double_jump_enabled))
 
 func _jump():
 	current_speed = SPEED
@@ -197,12 +205,11 @@ func _jump():
 		_flip_horizontally()
 	
 	# use double jump
-	if not is_on_floor() and not wall_check.is_colliding() and state != State.CLIMBING and coyote_timer.time_left <= 0.0 and double_jump_enabled:
+	if not is_on_floor() and not (wall_check.is_colliding() and walljump_enabled) and state != State.CLIMBING and coyote_timer.time_left <= 0.0 and double_jump_enabled:
 		double_jump_available = false
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		animation_player.stop()
 	
-	coyote_timer.stop()
 	state = State.JUMPING
 	animation_player.play("jump")
 
@@ -234,12 +241,18 @@ func _handle_animation(delta, direction):
 	if gravity_modifier < 0.0 != sprite.flip_v:
 		sprite.flip_v = ! sprite.flip_v
 	
-	if velocity.x != 0.0 and state != State.JUMPING and state != State.LANDING and state != State.CLIMBING:
+	if velocity.x != 0.0 and state != State.JUMPING and state != State.LANDING and state != State.CLIMBING and state != State.FALLING:
 		animation_player.play("walk")
 		state = State.WALKING
 	elif is_on_floor() and state != State.LANDING and state != State.JUMPING:
 		state = State.IDLE
 		animation_player.play("idle")
+	
+	if state == State.CLIMBING:
+		if velocity.y == 0.0:
+			animation_player.pause()
+		else:
+			animation_player.play(animation_player.current_animation)
 
 func _flip_horizontally():
 	sprite.flip_h = !sprite.flip_h
@@ -252,25 +265,25 @@ func _flip_horizontally():
 	
 
 func respawn():
-	lives_left -= 1
 	show()
 	collider.set_deferred("disabled", false)
 	transform.origin = start_position
-	sprite.flip_h = false
+	if sprite.flip_h:
+		_flip_horizontally()
 	animation_player.play("idle")
 	state = State.IDLE
 	velocity = Vector2(0.0,0.0)
 
 func die():
 	hide() # Player disappears after being hit.
+	lives_left -= 1
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	collider.set_deferred("disabled", true) # Replace with function body.
 	if lives_left > 0:
 		respawn()
 	else:
-		Globals.first_run = true
-		get_tree().reload_current_scene()
+		game_over.emit()
 
 func tile_has_property(tile_map : TileMapLayer, property : String) -> bool:
 	var tile_coords = tile_map.local_to_map(global_position)
