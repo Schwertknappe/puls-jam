@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjtqjuvxadd3p"]
+[gd_scene load_steps=5 format=3 uid="uid://cjtqjuvxadd3p"]
 
 [ext_resource type="Script" uid="uid://dy705qen0attb" path="res://scripts/ui.gd" id="1_q7yx2"]
 [ext_resource type="Script" uid="uid://djsoolv38k73k" path="res://scripts/augment_ui.gd" id="2_ofsfp"]
+[ext_resource type="Texture2D" uid="uid://1pcixak5l172" path="res://assets/sprites/heart.png" id="2_yexht"]
 [ext_resource type="Script" uid="uid://c1w6tljlvwbd5" path="res://scripts/panel_container.gd" id="3_yexht"]
 
 [node name="UI" type="Control"]
@@ -12,18 +13,50 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_q7yx2")
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Health" type="HBoxContainer" parent="HUD"]
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 84.0
+offset_bottom = 30.0
+theme_override_constants/separation = 10
+
+[node name="Heart1" type="TextureRect" parent="HUD/Health"]
+layout_mode = 2
+texture = ExtResource("2_yexht")
+stretch_mode = 2
+
+[node name="Heart2" type="TextureRect" parent="HUD/Health"]
+layout_mode = 2
+texture = ExtResource("2_yexht")
+stretch_mode = 2
+
+[node name="Heart3" type="TextureRect" parent="HUD/Health"]
+layout_mode = 2
+texture = ExtResource("2_yexht")
+stretch_mode = 2
+
 [node name="AugmentUI" type="CanvasLayer" parent="."]
 script = ExtResource("2_ofsfp")
 
 [node name="CenterContainer" type="CenterContainer" parent="AugmentUI"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AugmentUI/CenterContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+metadata/_edit_use_anchors_ = true
 
 [node name="Augment1" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("3_yexht")
 title_label = NodePath("VBoxContainer/Title")
 description_label = NodePath("VBoxContainer/Description")
@@ -37,15 +70,19 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
+horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+autowrap_mode = 2
 
 [node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer"]
 layout_mode = 2
 
 [node name="Augment2" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("3_yexht")
 title_label = NodePath("VBoxContainer2/Title")
 description_label = NodePath("VBoxContainer2/Description")
@@ -59,15 +96,19 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
+horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+autowrap_mode = 2
 
 [node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2"]
 layout_mode = 2
 
 [node name="Augment3" type="PanelContainer" parent="AugmentUI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("title_label", "description_label", "icon_texture")]
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("3_yexht")
 title_label = NodePath("VBoxContainer3/Title")
 description_label = NodePath("VBoxContainer3/Description")
@@ -81,12 +122,44 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
+horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+autowrap_mode = 2
 
 [node name="Button" type="Button" parent="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3"]
 layout_mode = 2
+size_flags_vertical = 8
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -70.0
+offset_right = 144.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 76
+text = "KAPUTT"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="GameOver/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "TRY AGAIN"
 
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment1" to="AugmentUI" method="_on_augment_selected"]
 [connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment1/VBoxContainer/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment1" method="_on_button_pressed"]
@@ -94,3 +167,4 @@ layout_mode = 2
 [connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment2/VBoxContainer2/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment2" method="_on_button_pressed"]
 [connection signal="selected" from="AugmentUI/CenterContainer/HBoxContainer/Augment3" to="AugmentUI" method="_on_augment_selected"]
 [connection signal="pressed" from="AugmentUI/CenterContainer/HBoxContainer/Augment3/VBoxContainer3/Button" to="AugmentUI/CenterContainer/HBoxContainer/Augment3" method="_on_button_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Button" to="." method="_on_game_over_button_pressed"]
